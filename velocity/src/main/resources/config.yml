@@ -1,0 +1,24 @@
+language: ru
+prefix: "<gray>[<gold>sMaintenance</gold>]</gray> "
+default-reason: "Technical works"
+fallback-servers: [lobby]
+closed-server-action: move
+warning-marks: [300, 60, 30, 10, 5, 4, 3, 2, 1]
+show-real-online: false
+notify-cooldown-seconds: 30
+bypass-groups: []
+bstats-id: 34861
+discord-enabled: false
+discord-url: ""
+discord-title: "sMaintenance"
+discord-role-id: ""
+discord-color-on: "0xe74c3c"
+discord-color-off: "0x2ecc71"
+discord-color-schedule: "0xf1c40f"
+enable-on-startup: false
+startup-reason: "Proxy startup"
+recurring: []
+recurring-lead-seconds: 300
+timezone: ""
+update-check: true
+modrinth-slug: smaintenance

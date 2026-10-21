@@ -1,0 +1,29 @@
+name: sMaintenance
+version: '${version}'
+main: com.scypter.smaintenance.paper.SMaintenancePaper
+author: ScypterV
+api-version: '1.13'
+folia-supported: true
+softdepend: [PlaceholderAPI, LuckPerms, ProtocolLib]
+commands:
+  maint:
+    description: Maintenance mode
+    aliases: [maintenance, tech]
+    permission: smaintenance.command
+permissions:
+  smaintenance.command:
+    default: op
+  smaintenance.command.toggle:
+    default: op
+  smaintenance.command.schedule:
+    default: op
+  smaintenance.command.whitelist:
+    default: op
+  smaintenance.command.reload:
+    default: op
+  smaintenance.command.status:
+    default: op
+  smaintenance.bypass:
+    default: op
+  smaintenance.notify:
+    default: op
