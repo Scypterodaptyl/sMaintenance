@@ -38,7 +38,7 @@ import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.TimeUnit;
 
-@Plugin(id = "smaintenance", name = "sMaintenance", version = "0.1.0",
+@Plugin(id = "smaintenance", name = "sMaintenance", version = "0.1.1",
         description = "Maintenance mode for the network", authors = {"ScypterV"},
         dependencies = {
                 @com.velocitypowered.api.plugin.Dependency(id = "luckperms", optional = true),
@@ -172,7 +172,7 @@ public final class SMaintenanceVelocity {
         final String slug = config.getString("modrinth-slug", "smaintenance");
         server.getScheduler().buildTask(this, () -> {
             String latest = UpdateChecker.fetchLatest(slug);
-            if (UpdateChecker.isNewer("0.1.0", latest)) {
+            if (UpdateChecker.isNewer("0.1.1", latest)) {
                 logger.info("A new sMaintenance version is available: {}", latest);
             }
         }).schedule();
