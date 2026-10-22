@@ -10,6 +10,8 @@ public final class NoExtras implements Extras {
 
     public boolean inBypassGroup(UUID id) { return false; }
 
+    public boolean hasPermission(UUID id, String node) { return false; }
+
     public String prefix(UUID id) { return ""; }
 
     public String suffix(UUID id) { return ""; }

@@ -10,6 +10,8 @@ public interface Extras {
 
     boolean inBypassGroup(UUID id);
 
+    boolean hasPermission(UUID id, String node);
+
     String prefix(UUID id);
 
     String suffix(UUID id);

@@ -43,6 +43,14 @@ public final class LuckPermsHook {
         }
     }
 
+    public boolean hasPermission(UUID id, String node) {
+        User user = lp.getUserManager().getUser(id);
+        if (user == null) {
+            return false;
+        }
+        return user.getCachedData().getPermissionData(user.getQueryOptions()).checkPermission(node).asBoolean();
+    }
+
     public boolean inBypassGroup(UUID id) {
         User user = lp.getUserManager().getUser(id);
         if (user == null) {

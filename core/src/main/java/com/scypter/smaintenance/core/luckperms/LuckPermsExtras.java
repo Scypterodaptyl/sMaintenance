@@ -20,6 +20,8 @@ public final class LuckPermsExtras implements Extras {
 
     public boolean inBypassGroup(UUID id) { return hook.inBypassGroup(id); }
 
+    public boolean hasPermission(UUID id, String node) { return hook.hasPermission(id, node); }
+
     public String prefix(UUID id) { return hook.prefix(id); }
 
     public String suffix(UUID id) { return hook.suffix(id); }

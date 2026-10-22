@@ -2,6 +2,7 @@ package com.scypter.smaintenance.paper.ping;
 
 import com.destroystokyo.paper.event.server.PaperServerListPingEvent;
 import com.scypter.smaintenance.paper.PaperRuntime;
+import com.destroystokyo.paper.profile.PlayerProfile;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -34,7 +35,18 @@ public final class PaperPingHandler implements Listener {
         }
         e.getPlayerSample().clear();
         for (String line : rt.text.legacyKick(rt.messages.raw("motd-hover", ph)).split("\n")) {
-            e.getPlayerSample().add(Bukkit.createProfile(UUID.randomUUID(), line));
+            PlayerProfile profile = profile(line);
+            if (profile != null) {
+                e.getPlayerSample().add(profile);
+            }
+        }
+    }
+
+    private static PlayerProfile profile(String line) {
+        try {
+            return Bukkit.createProfile(UUID.randomUUID(), line);
+        } catch (IllegalArgumentException invalidName) {
+            return null;
         }
     }
 }

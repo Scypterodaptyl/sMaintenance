@@ -213,6 +213,11 @@ public final class PaperRuntime {
         return p.hasPermission("smaintenance.bypass") || whitelist.contains(p.getUniqueId()) || extras.inBypassGroup(p.getUniqueId());
     }
 
+    public boolean hasBypass(java.util.UUID id) {
+        return plugin.getServer().getOfflinePlayer(id).isOp() || whitelist.contains(id)
+                || extras.hasPermission(id, "smaintenance.bypass") || extras.inBypassGroup(id);
+    }
+
     public boolean tryEnable(String by, long durationMillis, String reason) {
         MaintenanceEnableEvent ev = new MaintenanceEnableEvent(by, durationMillis, reason);
         plugin.getServer().getPluginManager().callEvent(ev);

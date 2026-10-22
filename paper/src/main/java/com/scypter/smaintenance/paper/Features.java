@@ -9,6 +9,7 @@ public final class Features {
     private static boolean folia;
     private static boolean adventureNative;
     private static boolean protocolLib;
+    private static boolean asyncLogin;
 
     private Features() {
     }
@@ -20,6 +21,8 @@ public final class Features {
         folia = !disabled.contains("folia") && hasClass("io.papermc.paper.threadedregions.RegionizedServer");
         adventureNative = !disabled.contains("adventureNative") && hasClass("net.kyori.adventure.audience.Audience")
                 && hasClass("io.papermc.paper.text.PaperComponents");
+        asyncLogin = !disabled.contains("asyncLogin") && hasClass("com.destroystokyo.paper.event.server.PaperServerListPingEvent")
+                && VersionUtil.isAtLeast(1, 21);
         protocolLib = !disabled.contains("protocolLib") && hasClass("com.comphenix.protocol.ProtocolLibrary");
     }
 
@@ -38,9 +41,10 @@ public final class Features {
     public static boolean folia() { return folia; }
     public static boolean adventureNative() { return adventureNative; }
     public static boolean protocolLib() { return protocolLib; }
+    public static boolean asyncLogin() { return asyncLogin; }
 
     public static String summary() {
         return "bossbar=" + bossbar + ", hexColors=" + hexColors + ", paperPing=" + paperPing
-                + ", folia=" + folia + ", adventureNative=" + adventureNative + ", protocolLib=" + protocolLib;
+                + ", folia=" + folia + ", adventureNative=" + adventureNative + ", protocolLib=" + protocolLib + ", asyncLogin=" + asyncLogin;
     }
 }

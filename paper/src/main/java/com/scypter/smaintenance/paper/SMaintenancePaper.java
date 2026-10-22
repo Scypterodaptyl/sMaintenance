@@ -5,6 +5,7 @@ import com.scypter.smaintenance.core.schedule.RecurringSchedule;
 import com.scypter.smaintenance.core.update.UpdateChecker;
 import com.scypter.smaintenance.paper.command.MaintCommand;
 import com.scypter.smaintenance.paper.listener.FreezeListener;
+import com.scypter.smaintenance.paper.listener.LegacyLoginListener;
 import com.scypter.smaintenance.paper.listener.LoginListener;
 import com.scypter.smaintenance.paper.ping.PingRegistrar;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -30,7 +31,11 @@ public final class SMaintenancePaper extends JavaPlugin {
         Features.detect(disabled);
         getLogger().info("Features: " + Features.summary());
         runtime = new PaperRuntime(this);
-        getServer().getPluginManager().registerEvents(new LoginListener(runtime), this);
+        LoginListener login = new LoginListener(runtime);
+        getServer().getPluginManager().registerEvents(login, this);
+        if (!Features.asyncLogin()) {
+            getServer().getPluginManager().registerEvents(new LegacyLoginListener(runtime, login), this);
+        }
         PingRegistrar.register(runtime);
         getServer().getPluginManager().registerEvents(new FreezeListener(runtime), this);
         getServer().getPluginManager().registerEvents(runtime.gui, this);
