@@ -83,7 +83,11 @@ public final class MaintenanceManager {
         if (!state.isEnabled() || state.getEndAt() <= 0 || millis <= 0) {
             return false;
         }
-        state.setEndAt(state.getEndAt() + millis);
+        long next = state.getEndAt() + millis;
+        if (next < state.getEndAt()) {
+            return false;
+        }
+        state.setEndAt(next);
         listener.onChanged();
         return true;
     }

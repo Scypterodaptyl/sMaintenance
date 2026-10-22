@@ -8,6 +8,8 @@ public final class TimeParser {
     private static final Pattern FULL = Pattern.compile("([0-9]+[smhd])+");
     private static final Pattern PART = Pattern.compile("([0-9]+)([smhd])");
 
+    public static final long MAX_MILLIS = 3650L * 86_400_000L;
+
     private TimeParser() {
     }
 
@@ -22,8 +24,14 @@ public final class TimeParser {
         long total = 0;
         Matcher m = PART.matcher(text);
         while (m.find()) {
-            long value = Long.parseLong(m.group(1));
-            total += value * unit(m.group(2).charAt(0));
+            try {
+                total = Math.addExact(total, Math.multiplyExact(Long.parseLong(m.group(1)), unit(m.group(2).charAt(0))));
+            } catch (ArithmeticException | NumberFormatException e) {
+                throw new IllegalArgumentException("time too large: " + input);
+            }
+        }
+        if (total > MAX_MILLIS) {
+            throw new IllegalArgumentException("time too large: " + input);
         }
         if (total <= 0) {
             throw new IllegalArgumentException("time must be positive: " + input);

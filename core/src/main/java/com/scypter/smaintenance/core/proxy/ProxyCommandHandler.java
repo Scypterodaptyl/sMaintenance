@@ -95,6 +95,10 @@ public final class ProxyCommandHandler {
         boolean scopeFirst = a.length >= 3 && (a[0].equalsIgnoreCase("global") || !TOP.contains(a[0].toLowerCase(Locale.ROOT)));
         if (scopeFirst && a[1].equalsIgnoreCase("whitelist") && a.length >= 4
                 && (a[2].equalsIgnoreCase("addgroup") || a[2].equalsIgnoreCase("removegroup"))) {
+            if (!a[0].equalsIgnoreCase(ProxyMaintenance.GLOBAL)) {
+                send(s, "proxy-usage", Messages.ph());
+                return;
+            }
             a = new String[]{a[1], a[2], a[3]};
         } else if (scopeFirst && (a[1].equalsIgnoreCase("schedule") || a[1].equalsIgnoreCase("whitelist"))) {
             String[] swapped = a.clone();
@@ -358,9 +362,20 @@ public final class ProxyCommandHandler {
         } else if (a.length == 3 && (first.equals("schedule") || a[1].equalsIgnoreCase("on") || a[1].equalsIgnoreCase("extend"))) {
             filter(out, TIMES, a[2]);
         } else if (a.length == 4 && first.equals("whitelist") && a[2].equalsIgnoreCase("remove")) {
-            filter(out, new ArrayList<String>(pm.whitelist(a[1]).entries().values()), a[3]);
+            if (s.has("smaintenance.command.whitelist") && containsIgnoreCase(scopes, a[1])) {
+                filter(out, new ArrayList<String>(pm.whitelist(a[1]).entries().values()), a[3]);
+            }
         }
         return out;
+    }
+
+    private static boolean containsIgnoreCase(List<String> list, String value) {
+        for (String x : list) {
+            if (x.equalsIgnoreCase(value)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private void filter(List<String> out, List<String> options, String prefix) {
