@@ -38,13 +38,10 @@ public final class SMaintenancePaper extends JavaPlugin {
         if (getServer().getPluginManager().getPlugin("PlaceholderAPI") != null) {
             com.scypter.smaintenance.paper.papi.PapiSupport.enable(runtime);
         }
-        int statsId = getConfig().getInt("bstats-id", 0);
-        if (statsId > 0) {
-            try {
-                com.scypter.smaintenance.paper.integration.BStatsSupport.enable(this, statsId);
-            } catch (Throwable t) {
-                getLogger().warning("bStats could not start: " + t.getMessage());
-            }
+        try {
+            com.scypter.smaintenance.paper.integration.BStatsSupport.enable(this, 34860);
+        } catch (Throwable t) {
+            getLogger().warning("bStats could not start: " + t.getMessage());
         }
         MaintCommand command = new MaintCommand(runtime);
         getCommand("maint").setExecutor(command);

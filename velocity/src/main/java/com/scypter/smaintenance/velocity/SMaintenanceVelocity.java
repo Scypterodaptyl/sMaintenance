@@ -104,10 +104,7 @@ public final class SMaintenanceVelocity {
         pm.setGroupBypass(id -> extras.inBypassGroup(id));
         notifier = new Notifier(r -> server.getScheduler().buildTask(this, r).schedule(), m -> logger.warn(m),
                 new AuditLog(dir.resolve("logs/maintenance.log")), () -> config, () -> messages);
-        int statsId = config.getInt("bstats-id", 0);
-        if (statsId > 0) {
-            metricsFactory.make(this, statsId);
-        }
+        metricsFactory.make(this, 34861);
         if (server.getPluginManager().isLoaded("miniplaceholders")) {
             MiniPlaceholdersSupport.enable(this);
         }

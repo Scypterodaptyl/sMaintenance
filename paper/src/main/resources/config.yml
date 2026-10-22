@@ -9,7 +9,6 @@ warning-marks: [300, 60, 30, 10, 5, 4, 3, 2, 1]
 show-real-online: false
 notify-cooldown-seconds: 30
 bypass-groups: []
-bstats-id: 34860
 papi-enabled-text: "On"
 papi-disabled-text: "Off"
 discord-enabled: false
